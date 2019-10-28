@@ -2,7 +2,6 @@ const connection = require("./connections");
 
 const orm = {
 
-<<<<<<< HEAD
     // //list all burgers
     // selectAll: function (cb) {
     //     const dbQuery = "SELECT * FROM burgers;";
@@ -40,45 +39,6 @@ const orm = {
     //         cb(result);
     //     });
     // }
-=======
-    //list all burgers
-    selectAll: function (cb) {
-        const dbQuery = "SELECT * FROM burgers;";
-
-        connection.query(dbQuery, function (err, result) {
-            if (err) {
-                throw err;
-            }
-            console.log(result);
-            cb(result);
-        });
-    },
-
-
-    //add burger
-    insertOne: function (insert, cb) {
-        const dbQuery = "INSERT INTO burgers SET ?";
-        connection.query(dbQuery, [insert], function (err, result) {
-            if (err) {
-                throw err;
-            }
-            console.log(result);
-            cb(result);
-        });
-    },
-
-    //change devoured status
-    updateOne: function (devoured, id, cb) {
-        const dbQuery = "UPDATE burgers SET ? WHERE id = ?";
-        connection.query(dbQuery, [devoured, id], function(err, result){
-            if (err) {
-                throw err;
-            }
-            console.log(result);
-            cb(result);
-        });
-    }
->>>>>>> cf0f997b4d43496b9efac0d7a42532ecb3736088
 
 };
 
