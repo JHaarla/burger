@@ -9,7 +9,7 @@ const app = express();
 // set the app "root" to public - only things in the public folder can be served to the client
 app.use(express.static("public"));
 
-// Parse application body as JSON
+    // Parse application body as JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
