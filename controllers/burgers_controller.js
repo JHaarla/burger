@@ -9,7 +9,7 @@ router.get("/", function (req, res) {
     });
 });
 
-// post new burger 
+ // post new burger 
 router.post("/api/burgers", function (req, res) {
     burger.insertOne("burger_name", req.body.burger_name, function (result) {
         res.json({ id: result.insertId });

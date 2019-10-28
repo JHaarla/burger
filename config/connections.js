@@ -2,7 +2,7 @@ const mysql = require("mysql");
 
 const connection = mysql.createConnection({
     host: "localhost",
-    port: 8080,
+    port: 3306,
     user: "root",
     password: "root",
     database: "burgers_db"
@@ -14,8 +14,8 @@ connection.connect(function(err) {
         console.error("Error connecting to DB: " + err.stack);
         return;
     }
-    console.log("Connected to DB as ID: " + connection.threadID);
+    console.log("Connected to DB as ID: " + connection.threadId);
 });
 
-//export the connection so it can be used in the app (ORM)
+ //export the connection so it can be used in the app (ORM)
 module.exports = connection;
