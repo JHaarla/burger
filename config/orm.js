@@ -10,6 +10,7 @@ const orm = {
             if (err) {
                 throw err;
             }
+            console.log(result);
             cb(result);
         });
     },
@@ -22,6 +23,7 @@ const orm = {
             if (err) {
                 throw err;
             }
+            console.log(result);
             cb(result);
         });
     },
@@ -33,6 +35,7 @@ const orm = {
             if (err) {
                 throw err;
             }
+            console.log(result);
             cb(result);
         });
     }
