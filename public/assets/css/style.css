@@ -1,0 +1,27 @@
+body { 
+    background-image: url("/assets/friestile.jpg");
+    background-repeat: repeat;
+}
+
+.my-bg {
+    background-color: #ffffff;
+}
+
+.my-margin {
+    margin: 2rem 0rem;
+}
+
+.my-round-corners {
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #cccccc;
+    border-width: 1px;
+}
+
+.burger {
+    margin: 10px;
+}
+
+.my-padding {
+    padding: 1rem;
+}

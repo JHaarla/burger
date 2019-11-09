@@ -8,7 +8,7 @@ const connection = mysql.createConnection({
     database: "burgers_db"
 });
 
-//Make the connection
+//Make the connection to the db
 connection.connect(function(err) {
     if (err) {
         console.error("Error connecting to DB: " + err.stack);
@@ -17,5 +17,5 @@ connection.connect(function(err) {
     console.log("Connected to DB as ID: " + connection.threadId);
 });
 
- //export the connection so it can be used in the app (ORM)
+//export the connection so it's useable elsewhere
 module.exports = connection;

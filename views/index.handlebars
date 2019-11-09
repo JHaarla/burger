@@ -1,61 +1,122 @@
-{{!-- main container --}}
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-8">
-                    <h1>Eat-Da-Burger</h1>
-                    <h5>Create a NEW burger!</h5>
-                    <form id="createBurger">
-                        <input type="email" class="form-control" id="createBurg" placeholder="Enter your burger here!">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
+    <div class="row my-margin my-bg my-round-corners">
+        
+        <div class="col-md-8 center-text">
+            <h1>So Many Burgers, So Little Time</h1>
+            <h5>Create a NEW burger!</h5>
+
+            <form id="newBurg">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Enter your custom burger here"
+                        aria-label="Enter your custom burger here" aria-describedby="basic-addon2" id="new-burg-name">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit">Make it!</button>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <img src="public/assets/img/burger.png" class="img-fluid">
+            </form>
+
+        </div>
+        <div class="col-md-4">
+            <img src="/assets/img/burger.png" class="img-fluid burger">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Available Burgers</h5>
+                    <ul>
+                        {{#each burgers}} {{#unless this.devoured}}
+                        <p>
+                            {{this.id}}. {{this.burger_name}}
+                            <button class="btn btn-success eat-it" data-id="{{this.id}}">Nom Nom the Burger</button>
+                        </p>
+                        {{/unless}} {{/each}}
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Nom'd Burgers</h5>
+                    <ul>
+                        {{#each burgers}} {{#if this.devoured}}
+                        <p>
+                            {{this.id}}. {{this.burger_name}}
+                            <button class="btn btn-danger chuck-it" data-id="{{this.id}}">Trash it!</button>
+                        </p>
+                        {{/if}} {{/each}}
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-
-
     <div class="row">
-        {{!-- list of burgers --}}
-        <div class="col-md-6">
-            <h3>Burgers</h3>
-            <ul>
-                {{#each burgers}} {{#unless this.devoured}}
-                <p>
-                    {{this.id}}. {{this.burger_name}}
-                    <button data-id="{{this.id}}" class="btn btn-primary">Eat Burger!</button>
-                </p>
-                {{/unless}} {{/else}}
-            </ul>
+        <div class="col-md-12 text-center">
+            <div class="card my-margin my-padding">
+            <h3>Don't forget to tip your servers!</h3>
 
+            </div>
         </div>
-
-        {{!-- list of devoured burgers --}}
-        <div class="col-md-6">
-            <h3>Devoured Burgers</h3>
-            <ul>
-                {{#each burgers}} {{#if this.devoured}}
-                <p>
-                    {{this.id}}. {{this.burger_name}}
-                </p>
-                {{/if}} {{/each}}
-            </ul>
-        </div>
-
     </div>
- 
+
 </div>
-
-
 
 <script type="text/javascript">
 
+    // new burger form - capture data when submitted
+    $("#newBurg").on("submit", function (event) {
+        event.preventDefault();
 
+        const new_burg = {
+            burger_name: $("#new-burg-name").val().trim()
+        };
+        console.log(new_burg);
 
+        //ajax call to POST route to add new burger to db
+        $.ajax("/api/burger", {
+            method: "POST",
+            data: new_burg
+        }).then(
+            function () {
+                location.reload();
+            }
+        );
+    });
 
+    //change devoured status on button click
+    $(".eat-it").on("click", function (event) {
+        event.preventDefault();
+        //grab burger id of button clicked
+        const eatId = $(this).data("id");
+
+        //ajax call - change devoured status -> true
+        $.ajax({
+            method: "PUT",
+            url: "/api/burger/" + eatId
+        }).then(
+            function () {
+                location.reload();
+            }
+        );
+    });
+
+    //delete devoured burgers
+    $(".chuck-it").on("click", function (event) {
+        event.preventDefault();
+        const chuckId = $(this).data("id");
+        //ajax call to delete selected burger
+        $.ajax({
+            method: "DELETE",
+            url: "api/burger/" + chuckId
+        }).then(
+            function () {
+                location.reload();
+            }
+        );
+    });
 
 </script>

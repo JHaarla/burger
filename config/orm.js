@@ -1,45 +1,45 @@
-const connection = require("./connections");
+var connection = require("../config/connection.js");
 
 const orm = {
-
-    // //list all burgers
-    // selectAll: function (cb) {
-    //     const dbQuery = "SELECT * FROM burgers;";
-
-    //     connection.query(dbQuery, function (err, result) {
-    //         if (err) {
-    //             throw err;
-    //         }
-    //         console.log(result);
-    //         cb(result);
-    //     });
-    // },
+    allBurgers: function (callBack) {
+        const queryString = "SELECT * FROM burgers";
+        connection.query(queryString, function (err, result) {
+            if (err) throw err;
+            console.log(result);
+            callBack(result);
+        });
+    },
 
 
-    // //add burger
-    // insertOne: function (insert, cb) {
-    //     const dbQuery = "INSERT INTO burgers SET ?";
-    //     connection.query(dbQuery, [insert], function (err, result) {
-    //         if (err) {
-    //             throw err;
-    //         }
-    //         console.log(result);
-    //         cb(result);
-    //     });
-    // },
+    devour: function (devoured, id, callBack) {
+        const queryString = "UPDATE burgers SET ? WHERE id = ?";
+        connection.query(queryString, [devoured, id], function(err, result) {
+            if(err) throw err;
+            console.log(result);
+            callBack(result);
+        });
+    },
 
-    // //change devoured status
-    // updateOne: function (devoured, id, cb) {
-    //     const dbQuery = "UPDATE burgers SET ? WHERE id = ?";
-    //     connection.query(dbQuery, [devoured, id], function(err, result){
-    //         if (err) {
-    //             throw err;
-    //         }
-    //         console.log(result);
-    //         cb(result);
-    //     });
-    // }
 
-};
+    create: function (addBurger, callBack) {
+        const queryString = "INSERT INTO burgers SET ?";
+        connection.query(queryString, [addBurger], function(err, result) {
+            if (err) throw err;
+            console.log(result);
+            callBack(result);
+        });
+    },
+
+
+    delete: function (id, callBack) {
+        const queryString = "DELETE FROM burgers WHERE id = ?";
+        connection.query(queryString, [id], function (err, result) {
+            if(err) throw err;
+            console.log(result);
+            callBack(result);
+        });
+    }
+
+}
 
 module.exports = orm;
